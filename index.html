@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Web</title>
+    <style>
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+        }
+        .navbar .logo {
+            width: 50px;
+            height: 50px;
+        }
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar ul li {
+            display: inline;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .navbar li a:hover {
+            color: darkred;
+            font-weight: bolder;
+            text-decoration: underline;
+        }
+        .navbar .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar .search-container input[type="text"] {
+            padding: 6px;
+            font-size: 17px;
+            border: 2px solid gainsboro;
+            border-radius: 4px;
+        }
+        .navbar .search-container button {
+            padding: 6px 10px;
+            background: #fff;
+            color: indianred;
+            border: 2px solid indianred;
+            border-radius: 4px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .navbar .search-container button:hover {
+            background: #f8f8f8;
+        }
+        .clothes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .clothes-section {
+            border: 1px solid #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .clothes-section h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        .female-clothes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .male-clothes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .clothes-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .clothes-item img {
+            width: 400px;
+            height: 350px;
+            border-radius: 4px;
+        }
+        .male-clothes .clothes-item img {
+        width: 300px;
+        }   
+        .clothes-item p {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .price-container {
+        display: flex;
+        width: 100%;
+        }
+        .price-container p:first-child {
+            margin-right: 20px;
+        }
+        .buy-button {
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo.png" alt="Logo" class="logo">
+        <ul id="navbar-list">
+            
+        </ul>
+        <div class="search-container">
+            <input type="text" placeholder="Tìm kiếm..">
+            <button type="submit">Tìm kiếm</button>
+        </div>
+    </div>
+
+    <div class="clothes-container" id="clothes-container">
+        <div class="clothes-section" id="female-clothes">
+            <h1>Thời trang nữ</h1>
+            <div class="female-clothes">
+                <!-- Female clothes items will be appended here -->
+            </div>
+        </div>
+        <div class="clothes-section">
+            <h1>Thời trang nam</h1>
+            <div class="male-clothes" id="male-clothes">
+                <!-- Male clothes items will be appended here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of categories
+        const categories = [
+            { id: "Home", name: "Trang chủ" },
+            { id: "female-clothes", name: "Thời Trang Nam" },
+            { id: "male-clothes", name: "Thời Trang Nữ" },
+            { id: "News", name: "Tin Tức" }
+        ];
+
+        // Get the navbar list element
+        const navbarList = document.getElementById('navbar-list');
+
+        // Iterate over the categories array
+        categories.forEach(category => {
+            // Create a list item
+            const li = document.createElement('li');
+            // Create a link
+            const a = document.createElement('a');
+            a.href = `#${category.id.toLowerCase()}`;
+            a.textContent = category.name;
+            // Append the link to the list item
+            li.appendChild(a);
+            // Append the list item to the navbar list
+            navbarList.appendChild(li);
+        });
+
+        // Array of female clothes items
+        const femaleClothes = [
+            { name: "Quần jean nữ", image: "https://ann.com.vn/wp-content/uploads/10924-clean-be4c847643b2baece3a3.png", id:"KO00002" ,newPrice: "269.000vnđ", oldPrice: "370.000vnđ" },
+            { name: "Áo khoác nữ", image: "https://theblues.com.vn/wp-content/uploads/2023/02/lc3.jpg", id:"VN0002" ,newPrice: "249.000vnđ", oldPrice: "369.000vnđ" },
+            { name: "Áo phông nữ nữ", image: "https://ann.com.vn/wp-content/uploads/10924-clean-be4c847643b2baece3a3.png", id:"US00002" ,newPrice: "159.000vnđ", oldPrice: "390.000vnđ" },
+        ];
+
+        // Array of male clothes items
+        const maleClothes = [
+            { name: "Quần short khaki", image: "https://product.hstatic.net/200000690725/product/esbk007_9977cbea0acd4911bec6ac90794a734d_master.jpg",id:"", newPrice: "250.000vnđ", oldPrice: "" },
+            { name: "Quần baggy đen sang trọng QQ", image: "https://product.hstatic.net/1000096703/product/2_61aa4371127d4faeb658c146cda9ff62_master.jpg", id:"", newPrice: "398.000vnđ", oldPrice: "" },
+            { name: "Quần short khaki", image: "https://pos.nvncdn.com/492284-9176/ps/20231201_7Euhngu6NS.jpeg", id:"", newPrice: "300.000vnđ", oldPrice: "" },
+            { name: "Quần short khaki", image: "https://pos.nvncdn.com/492284-9176/ps/20231201_UMtNdwjO9T.jpeg", id:"", newPrice: "300.000vnđ", oldPrice: "" }
+        ];
+
+        // Get the female and male sections
+        const femaleSection = document.querySelector('.female-clothes');
+        const maleSection = document.querySelector('.male-clothes');
+
+        // Function to create a clothes item element
+        function createClothesItem(item) {
+            // Create a div for each item
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'clothes-item';
+
+            // Create an image element
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.alt = item.name;
+
+            // Create a paragraph element for the name and ID
+            const nameP = document.createElement('p');
+            nameP.textContent = `${item.name} - ${item.id}`;
+
+            // Create a paragraph element for the new price
+            const newPriceP = document.createElement('p');
+            newPriceP.textContent = `${item.newPrice}`;
+            newPriceP.style.color = 'red';
+            newPriceP.style.marginRight = '20px'; // Add space between the prices
+
+            // Create a paragraph element for the old price
+            const oldPriceP = document.createElement('p');
+            oldPriceP.textContent = `${item.oldPrice}`;
+            oldPriceP.style.textDecoration = 'line-through';
+
+            // Create a container for the prices
+            const priceContainer = document.createElement('div');
+            priceContainer.className = 'price-container';
+            priceContainer.appendChild(newPriceP);
+            priceContainer.appendChild(oldPriceP);
+
+            // Create a button element for buying
+            const buyButton = document.createElement('button');
+            buyButton.className = 'buy-button';
+            buyButton.textContent = 'Buy';
+
+            // Create a container for the information
+            const infoContainer = document.createElement('div');
+            infoContainer.className = 'info';
+            infoContainer.appendChild(nameP);
+            infoContainer.appendChild(priceContainer);
+            infoContainer.appendChild(buyButton);
+
+            // Append elements to the item div
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(infoContainer);
+
+            return itemDiv;
+        }
+
+        // Add female clothes items
+        femaleClothes.forEach(item => {
+            const itemDiv = createClothesItem(item);
+            femaleSection.appendChild(itemDiv);
+        });
+
+        // Add male clothes items
+        maleClothes.forEach(item => {
+            const itemDiv = createClothesItem(item);
+            maleSection.appendChild(itemDiv);
+        });
+    </script>
+</body>
+</html>
